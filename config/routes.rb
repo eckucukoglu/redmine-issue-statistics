@@ -1,2 +1,1 @@
-# Plugin's routes
-# See: http://guides.rubyonrails.org/routing.html
+get '/:project_id/issuestats', :to => 'issuestats#index', as: 'issuestats'
