@@ -1,3 +1,5 @@
+require_dependency 'issuestats_hook_listener'
+
 Redmine::Plugin.register :issuestats do
   name 'Issue Statistics'
   url 'https://github.com/eckucukoglu/redmine-issue-statistics'
