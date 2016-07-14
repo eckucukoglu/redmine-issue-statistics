@@ -1,1 +1,82 @@
+<h1>Issue Statistics</h1>
+<p>
+  Currently showing statistics of issues that created between <b><%= params[:issuestats][:startdate] %></b> and <b><%= params[:issuestats][:enddate] %></b>.
+  <br>
+  Intervention status: <b><%= @intervention_status %></b>
+  Expected intervention time: <b><%= @intervention_time %>mins</b>.
+  <br>
+  Resolve status: <b><%= @resolve_status %></b>
+  Expected resolve time: <b><%= @resolve_time %>mins</b>.
+  <br>
+</p>
 
+
+<h2>Trackers vs Statuses</h2>
+
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan=<%= @status_ids.length+1%>>STATUS</th>
+    </tr>
+
+    <tr>
+      <th></th>
+      <th></th>
+      <% @status_ids.each do |status_id| %>
+        <th>
+          <%= IssueStatus.find_by_id(status_id) %>
+        </th>
+      <% end %>
+      <th>All</th>
+    </tr>
+  </thead>
+
+  <tr>
+    <th rowspan=<%= @trackers.length+2%>>TRACKERS</th>
+    <% @trackers.each do |tracker| %>
+      <tr>
+        <th><%= tracker.name %></th>
+        <% @status_ids.each do |status_id| %>
+          <td>
+            <% @priorities.each do |priority| %>
+              <%= priority.name %>: <%= @issues.where(:tracker_id => tracker.id).where(:status_id => status_id).where(:priority_id => priority.id).length %>
+              <br>
+            <% end %>
+          </td>
+        <% end %>
+        <td>
+          <% @priorities.each do |priority| %>
+            <%= priority.name %>: <%= @issues.where(:tracker_id => tracker.id).where(:priority_id => priority.id).length %>
+            <br>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <th>All</th>
+      <% @status_ids.each do |status_id| %>
+        <td>
+          <% @priorities.each do |priority| %>
+            <%= priority.name %>: <%= @issues.where(:status_id => status_id).where(:priority_id => priority.id).length %>
+            <br>
+          <% end %>
+        </td>
+      <% end %>
+      <td>
+        <% @priorities.each do |priority| %>
+          <%= priority.name %>: <%= @issues.where(:priority_id => priority.id).length %>
+          <br>
+        <% end %>
+      </td>
+    </tr>
+  </tr>
+</table>
+
+<br>
+<h2>Time analyze on Trackers vs Priorities</h2>
+
+
+<br>
+<h2>Issue details</h2>
