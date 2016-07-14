@@ -1,0 +1,15 @@
+<%= form_for :issuestats, url: project_issuestats_show_path(@project) do |f| %>
+    <tr><td><p><%= f.label "Start date: " %></td><td> <%= f.text_field :startdate, :type => "date", :required => true %></td></p></tr>
+    <tr><td><p><%= f.label "End date: " %></td> <td><%= f.text_field :enddate, :type => "date", :required => true %></td></p></tr>
+    <tr><td><p><%= f.label "Intervention time (h): " %></td><td> <%= f.text_field :interventiontime, :type => "number" %></td></p></tr>
+    <tr><td><p><%= f.label "Resolve time (h): " %></td><td> <%= f.text_field :resolvetime, :type => "number" %></td></p></tr>
+    <tr><td><%= f.submit 'Show statistics' %></td><td></td></tr>
+<% end %>
+
+<p>
+  Notes:
+  <br>
+  Intervention time: Time between 'in progress' and 'creation'.
+  <br>
+  Resolve time: Time between 'resolve' and 'creation'.
+</p>

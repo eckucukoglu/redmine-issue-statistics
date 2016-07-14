@@ -10,7 +10,7 @@ Redmine::Plugin.register :issuestats do
   menu :project_menu, :issuestats, { :controller => 'issuestats', :action => 'index' }, :caption => 'Statistics', :after => :files, :param => :project_id
 
   project_module :issuestats do
-    permission :view_issue_statistics, :issuestats => :index, :require => :member
+    permission :view_issue_statistics, :issuestats => [:index, :show]
   end
 
 end
