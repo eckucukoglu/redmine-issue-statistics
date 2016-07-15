@@ -1,3 +1,14 @@
-= issuestats
+= Redmine Issue Statistics Plugin
 
-Description goes here
+According to given
+
+* time interval,
+* intervention status and time
+* resolve status and time
+
+Issues are statistically analyzed;
+
+* Issue counts on Trackers vs Statuses table for each priority.
+* Issues that expired intervention and resolve times on Trackers vs Priorities table.
+* Average intervention and resolve times.
+* Issue list that cover intervention and resolve times for all issues in a given interval.
