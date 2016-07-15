@@ -77,6 +77,86 @@
 <br>
 <h2>Time analyze on Trackers vs Priorities</h2>
 
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan=<%= @priorities.length+1%>>PRIORITIES</th>
+    </tr>
+
+    <tr>
+      <th></th>
+      <th></th>
+      <% @priorities.each do |priority| %>
+        <th>
+          <%= priority %>
+        </th>
+      <% end %>
+      <th>All</th>
+    </tr>
+  </thead>
+
+  <tr>
+    <th rowspan=<%= @trackers.length+2%>>TRACKERS</th>
+    <% @trackers.each do |tracker| %>
+      <tr>
+        <th><%= tracker.name %></th>
+        <% @priorities.each do |priority| %>
+          <td>
+            <!-- TODO: -->
+            <%= "tracker+priority stats" %>
+          </td>
+        <% end %>
+        <td>
+          <!-- TODO: -->
+          <%= "tracker stats" %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <th>All</th>
+      <% @priorities.each do |priority| %>
+        <td>
+          <!-- TODO: -->
+          <%= "priority stats" %>
+        </td>
+      <% end %>
+      <td>
+        <!-- TODO: -->
+        <%= "all stats" %>
+      </td>
+    </tr>
+  </tr>
+</table>
 
 <br>
 <h2>Issue details</h2>
+
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>ISSUES</th>
+      <th>Intervention Time</th>
+      <th>Resolve Time</th>
+    </tr>
+  </thead>
+
+    <tr>
+      <% @issues.each do |issue| %>
+        <tr>
+          <th><%= link_to issue.subject, issue_path(issue) %></th>
+          <td>
+            <!-- TODO: -->
+            <%= "int" %>
+          </td>
+          <td>
+            <!-- TODO: -->
+            <%= "res" %>
+          </td>
+        </tr>
+      <% end %>
+    </tr>
+
+
+</table>
