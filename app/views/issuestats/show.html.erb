@@ -94,6 +94,7 @@
         </th>
       <% end %>
       <th>All</th>
+      <th>Average</th>
     </tr>
   </thead>
 
@@ -104,13 +105,26 @@
         <th><%= tracker.name %></th>
         <% @priorities.each do |priority| %>
           <td>
-            <!-- TODO: -->
-            <%= "tracker+priority stats" %>
+            <% issues_t_p = @issues.where(:tracker_id => tracker.id).where(:priority_id => priority.id) %>
+            <% results = get_time_statistics(issues_t_p, @intervention_time, @resolve_time, @intervention_status, @resolve_status) %>
+            <% results.each do |result| %>
+              <%= result %><br>
+            <% end %>
           </td>
         <% end %>
         <td>
-          <!-- TODO: -->
-          <%= "tracker stats" %>
+          <% issues_t = @issues.where(:tracker_id => tracker.id) %>
+          <% results = get_time_statistics(issues_t, @intervention_time, @resolve_time, @intervention_status, @resolve_status) %>
+          <% results.each do |result| %>
+            <%= result %><br>
+          <% end %>
+        </td>
+        <td>
+          <% issues_t = @issues.where(:tracker_id => tracker.id) %>
+          <% results = get_time_averages(issues_t, @intervention_time, @resolve_time, @intervention_status, @resolve_status) %>
+          <% results.each do |result| %>
+            <%= result %><br>
+          <% end %>
         </td>
       </tr>
     <% end %>
@@ -118,13 +132,24 @@
       <th>All</th>
       <% @priorities.each do |priority| %>
         <td>
-          <!-- TODO: -->
-          <%= "priority stats" %>
+          <% issues_p = @issues.where(:priority_id => priority.id) %>
+          <% results = get_time_statistics(issues_p, @intervention_time, @resolve_time, @intervention_status, @resolve_status) %>
+          <% results.each do |result| %>
+            <%= result %><br>
+          <% end %>
         </td>
       <% end %>
       <td>
-        <!-- TODO: -->
-        <%= "all stats" %>
+        <% results = get_time_statistics(@issues, @intervention_time, @resolve_time, @intervention_status, @resolve_status) %>
+        <% results.each do |result| %>
+          <%= result %><br>
+        <% end %>
+      </td>
+      <td>
+        <% results = get_time_averages(@issues, @intervention_time, @resolve_time, @intervention_status, @resolve_status) %>
+        <% results.each do |result| %>
+          <%= result %><br>
+        <% end %>
       </td>
     </tr>
   </tr>
@@ -136,7 +161,8 @@
 <table border="1" width="100%">
   <thead>
     <tr>
-      <th>ISSUES</th>
+      <th>Issue Id</th>
+      <th>Issue Subject</th>
       <th>Intervention Time</th>
       <th>Resolve Time</th>
     </tr>
@@ -145,18 +171,16 @@
     <tr>
       <% @issues.each do |issue| %>
         <tr>
-          <th><%= link_to issue.subject, issue_path(issue) %></th>
+          <th><%= link_to issue.id, issue_path(issue) %></th>
+          <td><%= issue.subject %></td>
           <td>
-            <!-- TODO: -->
-            <%= "int" %>
+            <%= get_issue_intervention_time(issue, @intervention_status) %>
           </td>
           <td>
-            <!-- TODO: -->
-            <%= "res" %>
+            <%= get_issue_resolve_time(issue, @intervention_status, @resolve_status) %>
           </td>
         </tr>
       <% end %>
     </tr>
-
 
 </table>

@@ -15,7 +15,8 @@ class IssuestatsController < ApplicationController
 
     @options = Array.new
     @status_ids.each do |status_id|
-      @options.push(IssueStatus.find_by_id(status_id))
+      issue_status = IssueStatus.find_by_id(status_id)
+      @options.push([issue_status.name, status_id])
     end
 
   end

@@ -3,6 +3,7 @@
     <% @issue_start_time = IssueStartTime.find_by_issue_id(params[:id]) %>
     <%= label :issuestats, "Start time" %> <%= text_field :issuestats, :start_time, :type => "time" %>
     <% if @issue_start_time != nil %>
-    <%= @issue_start_time.start_datetime %>
+    <%= @issue_start_time.start_datetime.strftime("%m/%d/%Y %I:%M%p") %>
+
     <% end %>
 <% end %>
