@@ -14,11 +14,11 @@ class IssuestatsHookListener < Redmine::Hook::ViewListener
 
         old_issue_start_time = IssueStartTime.find_by_issue_id(context[:issue][:id])
         if old_issue_start_time != nil
-          old_issue_start_time.destroy
+          old_issue_start_time.update_attributes(:start_datetime => start_datetime, :issue_id => context[:issue][:id])
+        else
+          issue_start_time = IssueStartTime.new(:start_datetime => start_datetime, :issue_id => context[:issue][:id])
+          issue_start_time.save
         end
-
-        issue_start_time = IssueStartTime.new(:start_datetime => start_datetime, :issue_id => context[:issue][:id])
-        issue_start_time.save
 
       end
     end
