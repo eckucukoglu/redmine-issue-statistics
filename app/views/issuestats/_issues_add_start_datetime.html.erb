@@ -2,11 +2,11 @@
   <p>
     <% @issue_start_time = IssueStartTime.find_by_issue_id(params[:id]) %>
     <% if @issue_start_time != nil %>
-      <% time = Time.parse(@issue_start_time.start_datetime.to_s) %>
+      <% time = Time.parse(@issue_start_time.start_datetime.to_s).utc.localtime %>
       <% time.to_formatted_s(:time) %>
       <%= label :issuestats, "Start time" %> <%= time_field(:issuestats, :start_time, :value => time.to_s(:time), :required => true) %>
     <% else %>
-      <% time = Time.now %>
+      <% time = Time.now.utc.localtime %>
       <% time.to_formatted_s(:time) %>
       <%= label :issuestats, "Start time" %> <%= time_field(:issuestats, :start_time, :value => time.to_s(:time), :required => true) %>
     <% end %>
