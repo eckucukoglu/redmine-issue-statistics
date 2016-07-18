@@ -1,6 +1,8 @@
 <% if @project.module_enabled?("issuestats") == true %>
   <% @issue_start_time = IssueStartTime.find_by_issue_id(params[:id]) %>
   <% if @issue_start_time != nil %>
-    <p><b>Start time: </b><%= @issue_start_time.start_datetime.strftime("%m/%d/%Y %I:%M%p") %></p>
+    <p><b>Start time: </b>
+      <%= @issue_start_time.start_datetime.strftime("%m/%d/%Y %I:%M %p") %>
+    </p>
   <% end %>
 <% end %>

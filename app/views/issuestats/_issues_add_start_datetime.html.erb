@@ -1,9 +1,13 @@
 <% if @project.module_enabled?("issuestats") == true %>
   <p>
     <% @issue_start_time = IssueStartTime.find_by_issue_id(params[:id]) %>
-    <%= label :issuestats, "Start time" %> <%= text_field :issuestats, :start_time, :type => "time" %>
     <% if @issue_start_time != nil %>
-    <%= @issue_start_time.start_datetime.strftime("%m/%d/%Y %I:%M%p") %>
-
+      <% time = Time.parse(@issue_start_time.start_datetime.to_s) %>
+      <% time.to_formatted_s(:time) %>
+      <%= label :issuestats, "Start time" %> <%= time_field(:issuestats, :start_time, :value => time.to_s(:time), :required => true) %>
+    <% else %>
+      <% time = Time.now %>
+      <% time.to_formatted_s(:time) %>
+      <%= label :issuestats, "Start time" %> <%= time_field(:issuestats, :start_time, :value => time.to_s(:time), :required => true) %>
     <% end %>
 <% end %>
