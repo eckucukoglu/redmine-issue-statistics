@@ -41,8 +41,13 @@ module IssuestatsHelper
       action_datetime = journal.created_on
       jdetails = JournalDetail.where(journal_id: journal.id)
 
+      if issue.status_id.to_i != resolve_status.to_i
+        return "Not resolved"
+      end
+
       jdetails.each do |jdetail|
         if jdetail.property == 'attr' && jdetail.prop_key == 'status_id' && jdetail.value == intervention_status
+
           first_intervene_time = action_datetime
           break
         end
