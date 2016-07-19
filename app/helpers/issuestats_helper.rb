@@ -4,7 +4,13 @@ module IssuestatsHelper
     if issue_start_time != nil
       start_datetime = issue_start_time.start_datetime
     else
-      start_datetime = DateTime.new(issue.start_date.year, issue.start_date.month, issue.start_date.day)
+      if (issue.start_date.year == issue.created_on.year &&
+          issue.start_date.month == issue.created_on.month &&
+          issue.start_date.day == issue.created_on.day)
+        start_datetime = issue.created_on
+      else
+        start_datetime = DateTime.new(issue.start_date.year, issue.start_date.month, issue.start_date.day)
+      end
     end
 
     @journals = Journal.where(journalized_id: issue.id).order("created_on ASC")
@@ -41,13 +47,12 @@ module IssuestatsHelper
       action_datetime = journal.created_on
       jdetails = JournalDetail.where(journal_id: journal.id)
 
-      if issue.status_id.to_i != resolve_status.to_i
+      if issue.status_id.to_i == intervention_status.to_i
         return "Not resolved"
       end
 
       jdetails.each do |jdetail|
         if jdetail.property == 'attr' && jdetail.prop_key == 'status_id' && jdetail.value == intervention_status
-
           first_intervene_time = action_datetime
           break
         end
@@ -152,8 +157,8 @@ module IssuestatsHelper
     avg_resolve_time = sum_resolve_time / count_resolved_issue
 
     results = Array.new
-    results.push("Avg int time: " + avg_intervention_time.to_s)
-    results.push("Avg res time: " + avg_resolve_time.to_s)
+    results.push("Avg int time: " + avg_intervention_time.round(1).to_s)
+    results.push("Avg res time: " + avg_resolve_time.round(1).to_s)
 
     return results
   end

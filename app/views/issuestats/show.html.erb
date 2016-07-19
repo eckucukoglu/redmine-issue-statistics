@@ -94,7 +94,7 @@
         </th>
       <% end %>
       <th>All</th>
-      <th>Average</th>
+      <th>Average (min)</th>
     </tr>
   </thead>
 
@@ -163,8 +163,8 @@
     <tr>
       <th>Issue Id</th>
       <th>Issue Subject</th>
-      <th>Intervention Time (mins)</th>
-      <th>Resolve Time (mins)</th>
+      <th>Intervention Time (h)</th>
+      <th>Resolve Time (h)</th>
     </tr>
   </thead>
 
@@ -174,10 +174,20 @@
           <th><%= link_to issue.id, issue_path(issue) %></th>
           <td><%= issue.subject %></td>
           <td>
-            <%= get_issue_intervention_time(issue, @intervention_status) %>
+            <% int_time = get_issue_intervention_time(issue, @intervention_status) %>
+            <% if int_time == "Not intervened" %>
+              <%= int_time %>
+            <% else %>
+              <%= (int_time.to_f/60).round(2) %>
+            <% end %>
           </td>
           <td>
-            <%= get_issue_resolve_time(issue, @intervention_status, @resolve_status) %>
+            <% res_time = get_issue_resolve_time(issue, @intervention_status, @resolve_status) %>
+            <% if res_time == "Not resolved" %>
+              <%= res_time %>
+            <% else %>
+              <%= (res_time.to_f/60).round(2) %>
+            <% end %>
           </td>
         </tr>
       <% end %>
