@@ -171,7 +171,7 @@
     <tr>
       <% @issues.each do |issue| %>
         <tr>
-          <th><%= link_to issue.id, issue_path(issue) %></th>
+          <th><%= link_to Tracker.find(issue.tracker_id).name.to_s + " #" + issue.id.to_s, issue_path(issue) %></th>
           <td><%= issue.subject %></td>
           <td>
             <% int_time = get_issue_intervention_time(issue, @intervention_status) %>
