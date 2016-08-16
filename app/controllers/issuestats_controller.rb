@@ -34,7 +34,7 @@ class IssuestatsController < ApplicationController
     @project = Project.find(params[:project_id])
     @issues = Issue.where(:project_id => @project.id, :start_date => @start_date..@end_date)
     if @issues.length == 0
-      flash[:alert] = "Could not find any issue between selected dates."
+      flash[:error] = "Could not find any issue between selected dates."
       redirect_to project_issuestats_path(:project_id => @project.id)
     else
       @trackers = @project.rolled_up_trackers
