@@ -35,7 +35,7 @@ module IssuestatsHelper
     if intervention_time >= 0
       return intervention_time
     else
-      return "Not intervened"
+      return (-1)
     end
   end
 
@@ -48,7 +48,7 @@ module IssuestatsHelper
       jdetails = JournalDetail.where(journal_id: journal.id)
 
       if issue.status_id.to_i == intervention_status.to_i
-        return "Not resolved"
+        return (-1)
       end
 
       jdetails.each do |jdetail|
@@ -85,7 +85,7 @@ module IssuestatsHelper
     if resolve_time >= 0
       return resolve_time
     else
-      return "Not resolved"
+      return (-1)
     end
   end
 
@@ -101,30 +101,30 @@ module IssuestatsHelper
       int_time = get_issue_intervention_time(issue, intervention_status)
       res_time = get_issue_resolve_time(issue, intervention_status, resolve_status)
 
-      if (int_time == "Not intervened")
-        not_intervene_count+= 1
+      if (int_time == (-1))
+        not_intervene_count += 1
       elsif (int_time > intervention_time.to_i)
-        expired_intervention_count+= 1
+        expired_intervention_count += 1
       else
-        nonexpired_intervention_count+= 1
+        nonexpired_intervention_count += 1
       end
 
-      if (res_time == "Not resolved")
-        not_resolve_count+= 1
+      if (res_time == (-1))
+        not_resolve_count += 1
       elsif (res_time > resolve_time.to_i)
-        expired_resolve_count+= 1
+        expired_resolve_count += 1
       else
-        nonexpired_resolve_count+= 1
+        nonexpired_resolve_count += 1
       end
     end
 
     results = Array.new
-    results.push("Expired int: " + expired_intervention_count.to_s)
-    results.push("Expired res: " + expired_resolve_count.to_s)
-    results.push("Not Expired int: " + nonexpired_intervention_count.to_s)
-    results.push("Not Expired res: " + nonexpired_resolve_count.to_s)
-    results.push("Not intervened: " + not_intervene_count.to_s)
-    results.push("Not resolved: " + not_resolve_count.to_s)
+    results.push(l(:issuestats_expired_int) + expired_intervention_count.to_s)
+    results.push(l(:issuestats_expired_res) + expired_resolve_count.to_s)
+    results.push(l(:issuestats_not_expired_int) + nonexpired_intervention_count.to_s)
+    results.push(l(:issuestats_not_expired_res) + nonexpired_resolve_count.to_s)
+    results.push(l(:issuestats_not_intervened_label) + not_intervene_count.to_s)
+    results.push(l(:issuestats_not_resolved_label) + not_resolve_count.to_s)
 
     return results
   end
@@ -142,12 +142,12 @@ module IssuestatsHelper
       int_time = get_issue_intervention_time(issue, intervention_status)
       res_time = get_issue_resolve_time(issue, intervention_status, resolve_status)
 
-      if (int_time != "Not intervened")
+      if (int_time != (-1))
         count_intervened_issue += 1
         sum_intervention_time += int_time
       end
 
-      if (res_time != "Not resolved")
+      if (res_time != (-1))
         count_resolved_issue += 1
         sum_resolve_time += res_time
       end
@@ -157,8 +157,8 @@ module IssuestatsHelper
     avg_resolve_time = sum_resolve_time / count_resolved_issue
 
     results = Array.new
-    results.push("Avg int time: " + avg_intervention_time.round(1).to_s)
-    results.push("Avg res time: " + avg_resolve_time.round(1).to_s)
+    results.push(l(:issuestats_avg_int_time) + avg_intervention_time.round(1).to_s)
+    results.push(l(:issuestats_avg_res_time) + avg_resolve_time.round(1).to_s)
 
     return results
   end

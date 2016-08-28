@@ -1,20 +1,20 @@
-<h1>Issue Statistics</h1>
+<h1><%= l(:issuestats_title)%></h1>
 
 <table>
-<%= form_for :issuestats, url: project_issuestats_show_path(@project) do |f| %>
-    <tr><p><td><%= f.label "Start date between: " %></td><td> <%= f.text_field :start_date, :type => "date", :required => true %> and  <%= f.text_field :end_date, :type => "date", :required => true %> </td></p></tr>
-    <tr><p><td><%= f.label "Intervention status: " %></td><td> <%= select :issuestats, :intervention_status, options_for_select(@options), {:include_blank => 'Select One'}, {:multiple => false, :required => true} %></td></p></tr>
-    <tr><p><td><%= f.label "Intervention time (min): " %></td><td> <%= f.text_field :intervention_time, :type => "number", :required => true %></td></p></tr>
-    <tr><p><td><%= f.label "Resolve status: " %></td><td> <%= select :issuestats, :resolve_status, options_for_select(@options), {:include_blank => 'Select One'}, {:multiple => false, :required => true} %></td></p></tr>
-    <tr><p><td><%= f.label "Resolve time (min): " %></td><td> <%= f.text_field :resolve_time, :type => "number", :required => true %></td></p></tr>
-    <tr><td><%= f.submit 'Show statistics' %></td><td></td></tr>
-<% end %>
+  <%= form_for :issuestats, url: project_issuestats_show_path(@project) do |f| %>
+    <tr><p><td><%= f.label l(:issuestats_start_date) %></td><td> <%= f.text_field :start_date, :type => "date", :required => true %> ,  <%= f.text_field :end_date, :type => "date", :required => true %> </td></p></tr>
+    <tr><p><td><%= f.label l(:issuestats_intervention_status) %></td><td> <%= select :issuestats, :intervention_status, options_for_select(@options), {:include_blank => l(:issuestats_select_one)}, {:multiple => false, :required => true} %></td></p></tr>
+    <tr><p><td><%= f.label l(:issuestats_intervention_time_min) %></td><td> <%= f.text_field :intervention_time, :type => "number", :required => true %></td></p></tr>
+    <tr><p><td><%= f.label l(:issuestats_resolve_status) %></td><td> <%= select :issuestats, :resolve_status, options_for_select(@options), {:include_blank => l(:issuestats_select_one)}, {:multiple => false, :required => true} %></td></p></tr>
+    <tr><p><td><%= f.label l(:issuestats_resolve_time_min) %></td><td> <%= f.text_field :resolve_time, :type => "number", :required => true %></td></p></tr>
+    <tr><td><%= f.submit l(:issuestats_show_stats) %></td><td></td></tr>
+  <% end %>
 </table>
 
-<p>
-  Notes:
-  <br>
-  Intervention time: Time between <b>first 'intervention status'</b> change and <b>'start date'</b> as minutes.
-  <br>
-  Resolve time: Time between <b>last 'resolve status'</b> change and <b>first 'intervention status'</b> as minutes.
-</p>
+<div class="issuestats_notes">
+  <p>
+    <%= l(:issuestats_notes) %><br>
+    <%= l(:issuestats_intervention_time) %><%= l(:issuestats_intervention_desc) %><br>
+    <%= l(:issuestats_resolve_time) %><%= l(:issuestats_resolve_desc) %>
+  </p>
+</div>

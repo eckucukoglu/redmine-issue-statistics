@@ -1,24 +1,24 @@
-<h1>Issue Statistics</h1>
-<p>
-  Currently showing statistics of issues that created between <b><%= params[:issuestats][:start_date] %></b> and <b><%= params[:issuestats][:end_date] %></b>.
-  <br>
-  Intervention status: <b><%= @intervention_statusname %></b>
-  Expected intervention time: <b><%= @intervention_time %>mins</b>.
-  <br>
-  Resolve status: <b><%= @resolve_statusname %></b>
-  Expected resolve time: <b><%= @resolve_time %>mins</b>.
-  <br>
-</p>
+<h1><%= l(:issuestats_title)%></h1>
+
+<div class="issuestats_info">
+  <p>
+    <%= l(:issuestats_info_between) %> <b><%= params[:issuestats][:start_date] %></b> , <b><%= params[:issuestats][:end_date] %></b><br>
+    <%= l(:issuestats_intervention_status) %> <b><%= @intervention_statusname %></b>
+    <%= l(:issuestats_intervention_time_min) %> <b><%= @intervention_time %></b><br>
+    <%= l(:issuestats_resolve_status) %> <b><%= @resolve_statusname %></b>
+    <%= l(:issuestats_resolve_time_min) %> <b><%= @resolve_time %></b><br>
+  </p>
+</div>
 
 
-<h2>Trackers vs Statuses</h2>
+<h2><%= l(:issuestats_trackers_vs_statuses) %></h2>
 
 <table border="1" width="100%">
   <thead>
     <tr>
       <th></th>
       <th></th>
-      <th colspan=<%= @status_ids.length+1%>>STATUS</th>
+      <th colspan=<%= @status_ids.length+1%>><%= l(:issuestats_title_statuses) %></th>
     </tr>
 
     <tr>
@@ -29,12 +29,12 @@
           <%= IssueStatus.find_by_id(status_id) %>
         </th>
       <% end %>
-      <th>All</th>
+      <th><%= l(:issuestats_all_statuses) %></th>
     </tr>
   </thead>
 
   <tr>
-    <th rowspan=<%= @trackers.length+2%>>TRACKERS</th>
+    <th rowspan=<%= @trackers.length+2%>><%= l(:issuestats_title_trackers) %></th>
     <% @trackers.each do |tracker| %>
       <tr>
         <th><%= tracker.name %></th>
@@ -55,7 +55,7 @@
       </tr>
     <% end %>
     <tr>
-      <th>All</th>
+      <th><%= l(:issuestats_all_trackers) %></th>
       <% @status_ids.each do |status_id| %>
         <td>
           <% @priorities.each do |priority| %>
@@ -75,14 +75,14 @@
 </table>
 
 <br>
-<h2>Time analyze on Trackers vs Priorities</h2>
+<h2><%= l(:issuestats_time_analyze_trackers_priorities) %></h2>
 
 <table border="1" width="100%">
   <thead>
     <tr>
       <th></th>
       <th></th>
-      <th colspan=<%= @priorities.length+1%>>PRIORITIES</th>
+      <th colspan=<%= @priorities.length+1%>><%= l(:issuestats_title_priorities) %></th>
     </tr>
 
     <tr>
@@ -93,13 +93,13 @@
           <%= priority %>
         </th>
       <% end %>
-      <th>All</th>
-      <th>Average (min)</th>
+      <th><%= l(:issuestats_all_priorities) %></th>
+      <th><%= l(:issuestats_average_min) %></th>
     </tr>
   </thead>
 
   <tr>
-    <th rowspan=<%= @trackers.length+2%>>TRACKERS</th>
+    <th rowspan=<%= @trackers.length+2%>><%= l(:issuestats_title_trackers) %></th>
     <% @trackers.each do |tracker| %>
       <tr>
         <th><%= tracker.name %></th>
@@ -129,7 +129,7 @@
       </tr>
     <% end %>
     <tr>
-      <th>All</th>
+      <th><%= l(:issuestats_all_trackers) %></th>
       <% @priorities.each do |priority| %>
         <td>
           <% issues_p = @issues.where(:priority_id => priority.id) %>
@@ -156,15 +156,15 @@
 </table>
 
 <br>
-<h2>Issue details</h2>
+<h2><%= l(:issuestats_issue_details) %></h2>
 
 <table border="1" width="100%">
   <thead>
     <tr>
-      <th>Issue Id</th>
-      <th>Issue Subject</th>
-      <th>Intervention Time (h)</th>
-      <th>Resolve Time (h)</th>
+      <th><%= l(:issuestats_issue_tracker_id) %></th>
+      <th><%= l(:issuestats_issue_subject) %></th>
+      <th><%= l(:issuestats_intervention_time_h) %></th>
+      <th><%= l(:issuestats_resolve_time_h) %></th>
     </tr>
   </thead>
 
@@ -175,16 +175,16 @@
           <td><%= issue.subject %></td>
           <td>
             <% int_time = get_issue_intervention_time(issue, @intervention_status) %>
-            <% if int_time == "Not intervened" %>
-              <%= int_time %>
+            <% if int_time == (-1) %>
+              <%= l(:issuestats_not_intervened) %>
             <% else %>
               <%= (int_time.to_f/60).round(2) %>
             <% end %>
           </td>
           <td>
             <% res_time = get_issue_resolve_time(issue, @intervention_status, @resolve_status) %>
-            <% if res_time == "Not resolved" %>
-              <%= res_time %>
+            <% if res_time == (-1) %>
+              <%= l(:issuestats_not_resolved) %>
             <% else %>
               <%= (res_time.to_f/60).round(2) %>
             <% end %>

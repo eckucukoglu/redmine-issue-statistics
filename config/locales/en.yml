@@ -1,3 +1,49 @@
-# English strings go here for Rails i18n
+# English strings sorted alphabetically.
 en:
-  # my_label: "My label"
+  issuestats_title: "Issue Statistics"
+
+  issuestats_not_find: "Could not find any issue between selected dates."
+  issuestats_not_intervened: "Not intervened"
+  issuestats_not_resolved: "Not resolved"
+
+  issue_start_time: "Start time"
+
+  issuestats_notes: "Notes:"
+  issuestats_intervention_time: "Intervention time: "
+  issuestats_intervention_desc: "Time between first 'intervention status' change and 'start date' as minutes."
+  issuestats_resolve_time: "Resolve time: "
+  issuestats_resolve_desc: "Time between last 'resolve status' change and first 'intervention status' as minutes."
+
+  issuestats_start_date: "Start date between: "
+  issuestats_intervention_status: "Intervention status: "
+  issuestats_intervention_time_min: "Intervention time (min): "
+  issuestats_resolve_status: "Resolve status: "
+  issuestats_resolve_time_min: "Resolve time (min): "
+  issuestats_show_stats: "Show statistics"
+  issuestats_select_one: "Select One"
+  issuestats_info_between: "Statistics are generated between "
+
+  issuestats_trackers_vs_statuses: "Trackers vs Statuses"
+  issuestats_time_analyze_trackers_priorities: "Time analyze on Trackers vs Priorities"
+  issuestats_issue_details: "Issue details"
+  issuestats_title_statuses: "STATUSES"
+  issuestats_title_trackers: "TRACKERS"
+  issuestats_title_priorities: "PRIORITIES"
+  issuestats_all_trackers: "All Trackers"
+  issuestats_all_statuses: "All Statuses"
+  issuestats_all_priorities: "All Priorities"
+  issuestats_average_min: "Average (min)"
+
+  issuestats_issue_tracker_id: "Issue Tracker #Id"
+  issuestats_issue_subject: "Issue Subject"
+  issuestats_intervention_time_h: "Intervention Time (h)"
+  issuestats_resolve_time_h: "Resolve Time (h)"
+
+  issuestats_expired_int: "Expired int: "
+  issuestats_expired_res: "Expired res: "
+  issuestats_not_expired_int: "Not Expired int: "
+  issuestats_not_expired_res: "Not Expired res: "
+  issuestats_not_intervened_label: "Not intervened: "
+  issuestats_not_resolved_label: "Not resolved: "
+  issuestats_avg_int_time: "Avg int time: "
+  issuestats_avg_res_time: "Avg res time: "
