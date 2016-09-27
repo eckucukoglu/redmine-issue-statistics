@@ -4,7 +4,7 @@ class IssuestatsHookListener < Redmine::Hook::ViewListener
 
   def controller_issues_new_after_save(context={})
     @project = Project.find(context[:issue][:project_id])
-    if @project.module_enabled?("issuestats") == true
+    if @project.module_enabled?("issuestats") == true and context[:params][:issuestats] != nil
       if context[:params][:issuestats][:start_time] != "" && context[:params][:issue][:start_date] != nil
         start_date = context[:params][:issue][:start_date]
         start_time = context[:params][:issuestats][:start_time]
