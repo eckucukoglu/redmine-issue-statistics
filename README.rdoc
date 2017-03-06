@@ -1,5 +1,9 @@
 = Redmine Issue Statistics Plugin
 
+# How to install
+Just clone to plugins folder. Note that directory name is: issuestats
+git clone https://github.com/eckucukoglu/redmine-issue-statistics issuestats
+
 According to given
 
 * time interval,
